@@ -3,7 +3,7 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0"
   xmlns:mailappor="http://schemas.microsoft.com/office/mailappversionoverrides/1.1" xsi:type="MailApp">
-  <Id>b205a287-30dd-441d-96ed-234f13e25d69</Id>
+  <Id>a83af79a-09d0-4014-94ba-54680d7d1efa</Id>
   <Version>1.0.0</Version>
   <ProviderName>daves.tips</ProviderName>
   <DefaultLocale>en-US</DefaultLocale>

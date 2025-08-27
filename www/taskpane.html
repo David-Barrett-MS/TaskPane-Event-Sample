@@ -1,0 +1,66 @@
+<!-- Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license. -->
+<!-- See LICENSE in the project root for license information -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>No UI</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <script type="text/javascript" src="https://appsforoffice.microsoft.com/lib/1.1/hosted/office.debug.js"></script>
+    <script type="module" src="taskpane.js"></script>
+    <link rel="stylesheet" href="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-js/1.4.0/css/fabric.min.css" />
+    <link rel="stylesheet" href="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-js/1.4.0/css/fabric.components.min.css" />
+    <script src="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-js/1.4.0/js/fabric.min.js"></script>
+ 
+</head>
+<body class="ms-font-m ms-welcome ms-Fabric ms-bgColor-neutralLighter">
+    <header class="ms-welcome__header ms-bgColor-neutralLighter">
+        <!-- <img width="90" height="90" src="assets/logo-filled.png" alt="daves.tips" title="daves.tips" /> -->
+        <h1 class="ms-font-su">TaskPane/Event Sample</h1>
+    </header>
+    <section class="ms-font-m">
+        <h3>Summary</h3>
+        <p>This sample shows the state of different storage as seen by the TaskPane.</p>
+        <p>Send events and recipient change events will cause a key/value to be set in both Office Session Storage and browser localStorage (it does not set browser sessionStorage).  Depending on the Office client, one or other of these storages may not be available.</p>
+    </section>
+    <section class="ms-font-m">
+        <h3>Tests</h3>
+        <div role="button" id="clearStorage" class="ms-welcome__action ms-Button ms-Button--hero ms-font-xl">
+            <span class="ms-Button-label">Clear all storage</span>
+        </div>
+        <div role="button" id="dumpStorage" class="ms-welcome__action ms-Button ms-Button--hero ms-font-xl">
+            <span class="ms-Button-label">Dump storage data</span>
+        </div>
+        <br/>
+        <div role="button" id="setValue" class="ms-welcome__action ms-Button ms-Button--hero ms-font-xl">
+            <span class="ms-Button-label">Set data</span>
+        </div>    
+    </section>
+    <section class="ms-font-m">
+        <h3>Data</h3>
+        <div class="ms-TextField ms-TextField--multiline">
+            <label class="ms-Label">Local Storage</label>
+            <textarea id="localStorage" class="ms-TextField-field"></textarea>
+        </div>
+        <div class="ms-TextField ms-TextField--multiline">
+            <label class="ms-Label">Office Session Data</label>
+            <textarea id="sessionData" class="ms-TextField-field"></textarea>
+        </div>        
+        <div class="ms-TextField ms-TextField--multiline">
+            <label class="ms-Label">Session Storage</label>
+            <textarea id="sessionStorage" class="ms-TextField-field"></textarea>
+        </div>    </section>    
+    <script type="text/javascript">
+        var TextFieldElements = document.querySelectorAll(".ms-TextField");
+        for (var i = 0; i < TextFieldElements.length; i++) {
+            new fabric['TextField'](TextFieldElements[i]);
+        }
+        var CheckBoxElements = document.querySelectorAll(".ms-CheckBox");
+        for (var i = 0; i < CheckBoxElements.length; i++) {
+            new fabric['CheckBox'](CheckBoxElements[i], checkboxChanged);
+        }        
+        console.log("Fabric applied");
+    </script>       
+</body>
+</html>

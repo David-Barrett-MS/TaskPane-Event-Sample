@@ -4,7 +4,7 @@
   xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0"
   xmlns:mailappor="http://schemas.microsoft.com/office/mailappversionoverrides/1.1" xsi:type="MailApp">
   <Id>b205a287-30dd-441d-96ed-234f13e25d69</Id>
-  <Version>1.0.0</Version>
+  <Version>1.0.1</Version>
   <ProviderName>daves.tips</ProviderName>
   <DefaultLocale>en-US</DefaultLocale>
   <DisplayName DefaultValue="TaskPane Event Sample"/>
@@ -101,6 +101,7 @@
             <ExtensionPoint xsi:type="LaunchEvent">
               <LaunchEvents>                
                 <LaunchEvent Type="OnMessageRecipientsChanged" FunctionName="OnMessageRecipientsChangedHandler"/>
+                <LaunchEvent Type="OnAppointmentAttendeesChanged" FunctionName="OnAppointmentAttendeesChangedHandler" />
                 <LaunchEvent Type="OnMessageSend" FunctionName="onMessageSendHandler" SendMode="PromptUser"/>
                 <LaunchEvent Type="OnAppointmentSend" FunctionName="OnAppointmentSendHandler" SendMode="PromptUser"/>
               </LaunchEvents>

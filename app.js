@@ -180,9 +180,17 @@ function OnMessageRecipientsChangedHandler(event) {
     event.completed({ allowEvent: true });
 }
 
+function OnAppointmentAttendeesChangedHandler(event) {
+    setSharedData("OnAppointmentAttendeesChangedCalled", new Date().toISOString());
+    SetStatus("OnAppointmentAttendeesChangedCalled");
+    event.completed({ allowEvent: true });
+}
+
+
 if (Office.context.platform === Office.PlatformType.PC || Office.context.platform == null) {
     // Associate the events with their respective handlers
     Office.actions.associate("OnMessageSendHandler", onMessageSendHandler);
     Office.actions.associate("OnAppointmentSendHandler", OnAppointmentSendHandler);
     Office.actions.associate("OnMessageRecipientsChangedHandler", OnMessageRecipientsChangedHandler);
+    Office.actions.associate("OnAppointmentAttendeesChangedHandler", OnAppointmentAttendeesChangedHandler);
 }

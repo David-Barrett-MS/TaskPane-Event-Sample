@@ -4,8 +4,8 @@
   xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0"
   xmlns:mailappor="http://schemas.microsoft.com/office/mailappversionoverrides/1.1" xsi:type="MailApp">
   <Id>a83af79a-09d0-4014-94ba-54680d7d1efa</Id>
-  <Version>1.0.0</Version>
-  <ProviderName>daves.tips</ProviderName>
+  <Version>1.0.1</Version>
+  <ProviderName>Contoso</ProviderName>
   <DefaultLocale>en-US</DefaultLocale>
   <DisplayName DefaultValue="TaskPane Event Sample"/>
   <Description DefaultValue="Demonstrates how to share data between an add-in send event and a TaskPane in appointment and message Compose scenarios."/>
@@ -98,6 +98,7 @@
             <ExtensionPoint xsi:type="LaunchEvent">
               <LaunchEvents>                
                 <LaunchEvent Type="OnMessageRecipientsChanged" FunctionName="OnMessageRecipientsChangedHandler"/>
+                <LaunchEvent Type="OnAppointmentAttendeesChanged" FunctionName="OnAppointmentAttendeesChangedHandler" />
                 <LaunchEvent Type="OnMessageSend" FunctionName="onMessageSendHandler" SendMode="PromptUser"/>
                 <LaunchEvent Type="OnAppointmentSend" FunctionName="OnAppointmentSendHandler" SendMode="PromptUser"/>
               </LaunchEvents>

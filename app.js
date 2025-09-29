@@ -14,6 +14,13 @@ Office.initialize = function () {
     // This function is not called during OnMessageSend LaunchEvent in Outlook Desktop, so any initialisation here won't work in that scenario
 }
 
+function FormatLog(data) {
+    // Return log with add-in name and current time prepended
+  let now = new Date();
+  let currentTime = now.toLocaleTimeString('en-US', { hour12: false });
+  return AddinName + " " + currentTime + ": " + data;
+}
+
 async function getInsightMessage() {
   return {
     type: Office.MailboxEnums.ItemNotificationMessageType.InsightMessage,
@@ -33,14 +40,14 @@ async function getInsightMessage() {
 async function applyInsightMessage(event) {
   const notification = await getInsightMessage();
 
-  console.log("Applying InsightMessage:", notification);
+  console.log(FormatLog("Applying InsightMessage:"), notification);
   Office.context.mailbox.item.notificationMessages.replaceAsync("InsightMessage", notification, (asyncResult) => {
     if (asyncResult.status === Office.AsyncResultStatus.Failed) {
       console.error("Failed to apply InsightMessage:", asyncResult.error.message);
       return;
     }
-    console.log("InsightMessage applied");
-  });  
+    console.log(FormatLog("InsightMessage applied"));
+  });
 
   if (event) {
     event.completed();
@@ -72,13 +79,8 @@ async function SetStatus(message) {
         statusInfo = statusInfo + " | ";    
     }
     statusInfo = statusInfo + message;
-    console.log(message);
+    console.log(FormatLog(message));
     return SetNotification(statusInfo);
-}
-
-function LogToConsole(data) {
-    //return;
-    console.log(AddinName + ": " + data);
 }
 
 function isLocalStorageAvailable() {
@@ -119,13 +121,13 @@ function setSharedData(key, value) {
 
     if (isLocalStorageAvailable()) {
         setInLocalStorage(key, value);
-        LogToConsole("Set local storage: " + key + " = " + value);
+        console.log(FormatLog("Set local storage: " + key + " = " + value));
     }
     else {
-        LogToConsole("Local storage not available");
+        console.log(FormatLog("Local storage not available"));
     }
     Office.context.mailbox.item.sessionData.setAsync(key, value);
-    LogToConsole("Set session data: " + key + " = " + value);
+    console.log(FormatLog("Set session data: " + key + " = " + value));
 }
 
 function getSharedData(key) {
@@ -135,12 +137,12 @@ function getSharedData(key) {
     if (Office.context.platform === Office.PlatformType.Mac) { //} && !                navigator.userAgent.includes("OneOutlook")) {
         // Mac Outlook
         sessionDataAvailable = false;
-        LogToConsole("Reading " + key + "from local storage");
+        console.log(FormatLog("Reading " + key + "from local storage"));
         return getFromLocalStorage(key);
     }
 
     if (sessionDataAvailable) {
-        LogToConsole("Reading " + key + "from session data");
+        console.log(FormatLog("Reading " + key + "from session data"));
         Office.context.mailbox.item.sessionData.getAsync(key, function (asyncResult) {
             if (asyncResult.status === Office.AsyncResultStatus.Succeeded) {
                 return asyncResult.value;
@@ -153,12 +155,12 @@ function getSharedData(key) {
 }
 
 function dumpStorageByKey(key) {
-    LogToConsole("Dumping storage for key: " + key);
+    console.log(FormatLog("Dumping storage for key: " + key));
     let value = getFromLocalStorage(key);
-    LogToConsole("Local storage: " + key + " = " + value);
+    console.log(FormatLog("Local storage: " + key + " = " + value));
 
     Office.context.mailbox.item.sessionData.getAsync(key, function (asyncResult) {
-        LogToConsole("Session data: " + key + " = " + asyncResult.value);
+        console.log(FormatLog("Session data: " + key + " = " + asyncResult.value));
     });
 }
 
@@ -187,7 +189,7 @@ function OnAppointmentAttendeesChangedHandler(event) {
 }
 
 
-if (Office.context.platform === Office.PlatformType.PC || Office.context.platform == null) {
+if (Office.context !== undefined && (Office.context.platform === Office.PlatformType.PC || Office.context.platform == null) ) {
     // Associate the events with their respective handlers
     Office.actions.associate("OnMessageSendHandler", onMessageSendHandler);
     Office.actions.associate("OnAppointmentSendHandler", OnAppointmentSendHandler);

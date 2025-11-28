@@ -167,13 +167,13 @@ function dumpStorageByKey(key) {
 function onMessageSendHandler(event) {
     setSharedData("onMessageSendCalled", new Date().toISOString());
     SetStatus("onMessageSendCalled");
-    event.completed({ allowEvent: false });
+    event.completed({ allowEvent: true });
 }
 
 function OnAppointmentSendHandler(event) {
     setSharedData("onAppointmentSendCalled", new Date().toISOString());
     SetStatus("onAppointmentSendCalled");
-    event.completed({ allowEvent: false });
+    event.completed({ allowEvent: true });
 }
 
 function OnMessageRecipientsChangedHandler(event) {
